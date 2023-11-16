@@ -23,13 +23,14 @@ const puppeteer = require('puppeteer')
 const fs = require('fs');
 const fsP = require('fs').promises;
 try {
-  let nodemailer = require("nodemailer");
+  var nodemailer = require("nodemailer");
 } catch (e) {
-  let nodemailer = false;
+  var nodemailer = false;
 }
 
 let settings = {};
-let canClose = false;
+var browser;
+var page;
 
 var hoursVerified = [];
 
@@ -43,24 +44,28 @@ async function loadSettings() {
   }
 }
 
-async function main() {
+async function main(firstExecution) {
   await loadSettings();
-  const [browser, page] = await openBrowser();
+  if(firstExecution) {
+    [browser, page] = await openBrowser();
+  }
   try {
-    await reachShop(page);
+    if(firstExecution) {
+      await reachShop(page);
+    }
     await shopToJSON(page);
     await sleep(1000);
     await checkRules(page);
     let currentHour = getCurrentHour();
     hoursVerified.push(currentHour);
     console.log(currentHour);
-    var interval = setInterval(async function() {
-      if(canClose) {
-        canClose = false;
-        await browser.close();
-        clearInterval(interval);
-      }
-    }, 1000);
+    // var interval = setInterval(async function() {
+    //   if(canClose) {
+    //     canClose = false;
+    //     await browser.close();
+    //     clearInterval(interval);
+    //   }
+    // }, 1000);
   } catch (error) {
     if(settings.modeDebug) console.log(error);
     console.log("Error (no internet ?)");
@@ -291,15 +296,16 @@ async function checkRules(page) {
 }
 
 async function reachShop(page) {
-  await page.goto('https://darkti.de/auth/steam');
+  await page.goto("https://store.steampowered.com/login/");
   await page.waitForSelector('.newlogindialog_TextInput_2eKVn');
   await page.type('.newlogindialog_TextInput_2eKVn', settings.steampseudo);
   await page.type('[type="password"]', settings.steampassword);
   await page.click(".newlogindialog_SubmitButton_2QgFE");
+  await page.waitForSelector('.playerAvatar', {timeout:0});
+  await page.goto("https://darkti.de/auth/steam")
   await page.waitForSelector('#imageLogin');
   await page.click("#imageLogin");
-  await page.waitForSelector('.h-screen');
-  await sleep(1000);
+  await sleep(4000);
 }
 
 async function openBrowser() {
@@ -357,10 +363,10 @@ function sleep(ms) {
 }
  
 // We check once and then every 10 minutes
-main();
+main(true);
 setInterval(function() {
   let currentHour = getCurrentHour();
   if(!hoursVerified.includes(currentHour)) {
-    main();
+    main(false);
   }
 }, 1000 * 60 * 10);
