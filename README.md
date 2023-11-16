@@ -11,8 +11,6 @@ Please be aware that I initially made this script for myself and a friend, and d
 ### Downsides & Limitations
 - You need at some point to put your steam credentials in a file
     - That been said, the code is completely public, short and easy to read. With a bit of knowledge you can easily see its only aim is to follow its purpose, and not try to steal your steam account.
-- Currently the script doesn't work with Steam 2FA (double authentification), so you need to disable it
-    - I haven't found a way to make the script consistenly work with 2FA
 - It requires you to install some programs and execute some code, which can be scary
     - But I'll try to make it easy for you
 - Currently it is not working with curios
@@ -53,35 +51,35 @@ The script is ready to be launched, we now need to configure your settings in se
 
 Configuration is available in settings.json file.
 - Make sure darkti.de is working properly for you
-- Make sure steam 2FA is disabled, otherwise the script won't work
 - At first, set modeDebug to true, and buyWeapons to false (normally already set like this when you download the program)
 
 Now here is the description of each param : 
 - steampseudo : your steam pseudo
 - steampassword : your steam password
-- modeDebug : boolean (true/false) if set to true, you will see the bot in action, otherwise it runs in background (in production, set to false so that you don't have chrome windows popping)
-- buyWeapons : whether if you want to automatically buy the weapons that match the criterias or not. Note that if you find more than 5 weapons to buy in ONE shop, the program consider the programmation is wrong and won't buy anything (guardrail). You want to set this to true once you are confident about your programmation
-- chromePath : where your chrome.exe application is located
+- modeDebug : boolean (true/false) if set to true, you will see the bot in action, otherwise it runs in background (in production, set to false so that you don't have chrome windows popping). If your Steam Guard requires to enter a code, you need to set modeDebug to true in order to be able to enter the code.
+- buyWeapons : boolean (true/false) whether if you want to automatically buy the weapons that match the criterias or not. Note that if you find more than 5 weapons to buy in ONE shop, the program consider the programmation is wrong and won't buy anything (guardrail). You want to set this to true once you are confident about your programmation.
+- chromePath : where your chrome.exe application is located (make sure to get this right, otherwise the program won't be able to launch chrome)
 - classes : when you go to darkti.de and select a class, a class token should be visible in the URL. For example : https://darkti.de/armoury/62be598b-73ef-4e35-bdd0-fc7e8427799b/exchange (here the token is "62be598b-73ef-4e35-bdd0-fc7e8427799b"). Fill the token for each class.
-- rules (each rule filter is optionnal)
-    -   title : title of the weapon (doesn't need to be complete, the script will match even if it is partially given)
-    -   type : weapon (currently curio are not supported)
-    -   modifierRating : minimum modifier total rating to get selected
-    -   modifierDetails : minimum modifier rating to get selected (script will match partial words)
+- rules (**each rule filter is optionnal**)
+    -   title : string : title of the weapon (doesn't need to be complete, the script will match even if it is partially given)
+    -   type : string : weapon (currently curio are not supported)
+    -   modifierRating : number : minimum modifier total rating to get selected
+    -   modifierDetails : array of objects (modifierName:modifierValue) : minimum modifier rating to get selected (script will match partial words for modifier names)
     -   strictModifierCheck : boolean (true/false) : defaults to true. If false, then the modifiers not found do not exclude the weapon (you still need at least one modifier that passes the test to validate the weapon)
     -   rarity : annointed, redeemed, profane
-    -   perkNames : perks you WANT to get
-    -   perkLevel : minimum perk level
-    -   perkNamesBanned : perks you DON'T WANT
-    -   blessingNames : blessings you WANT to get
-    -   blessingLevel : minimum blessing level
-    -   blessingNamesBanned : blessings you DON'T WANT
-    -   class : ogryn, psyker, zealot, veteran
+    -   perkNames : array of strings : perks you WANT to get
+    -   perkLevel : number : minimum perk level
+    -   perkNamesBanned : array of strings : perks you DON'T WANT
+    -   blessingNames : array of strings : blessings you WANT to get
+    -   blessingLevel : number : minimum blessing level
+    -   blessingNamesBanned : array of strings : blessings you DON'T WANT
+    -   class : string in this list [ogryn, psyker, zealot, veteran]
     -   buy : boolean (true/false) : whether you want to autobuy any weapon that will match the programmation or not (this setting is overwritten by the global "buyWeapons" setting)
 
 When ready, you can run navigate to your autobuyer directory (using cd like seen previously) and run :
 ```sh
 node bot.js
 ```
+If your steam guard is enabled, you should either accept the phone notification OR enter the code in the chrome window (for that you need to have modeDebug set to true)
 
 Have fun !

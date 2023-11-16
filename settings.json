@@ -17,7 +17,7 @@
     {
       "rarity": "profane",
       "type": "weapon",
-      "modifierRating": "373",
+      "modifierRating": 373,
       "modifierDetails": { 
         "Damage": 74,
         "Penetration": 74,
@@ -54,7 +54,7 @@
     {
       "rarity": "redeemed",
       "type": "weapon",
-      "modifierRating": "373",
+      "modifierRating": 373,
       "modifierDetails": { 
         "Damage": 74,
         "Penetration": 74,
