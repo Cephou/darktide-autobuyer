@@ -85,4 +85,6 @@ If your steam guard is enabled, you should either accept the phone notification 
 
 The script should display a line to tell if your buyWeapons parameter is activated or not, and then each hour it will display a line with the current date time. If a weapon is found, it will display the weapon's stats.
 
+As long as the command windows is open, the script will run.
+
 Have fun !
