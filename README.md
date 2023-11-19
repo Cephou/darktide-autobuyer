@@ -51,6 +51,7 @@ The script is ready to be launched, we now need to configure your settings in se
 
 Configuration is available in settings.json file.
 - Make sure darkti.de is working properly for you
+- Make sure you have chrome installed
 - At first, set modeDebug to true, and buyWeapons to false (normally already set like this when you download the program)
 
 Now here is the description of each param : 
@@ -80,6 +81,8 @@ When ready, you can run navigate to your autobuyer directory (using cd like seen
 ```sh
 node bot.js
 ```
-If your steam guard is enabled, you should either accept the phone notification OR enter the code in the chrome window (for that you need to have modeDebug set to true)
+If your steam guard is enabled, you should either accept the phone notification OR enter the code in the chrome window (for that you need to have modeDebug set to true).
+
+The script should display a line to tell if your buyWeapons parameter is activated or not, and then each hour it will display a line with the current date time. If a weapon is found, it will display the weapon's stats.
 
 Have fun !
