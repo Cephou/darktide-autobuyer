@@ -31,7 +31,7 @@ npm -v
 
 - In the windows terminal, navigate to the directory you chose
 ```sh
-cd "mypath"
+cd "yourpath"
 # For example cd "C:\Program Files\Dartide Auto Buyer"
 ```
 - Run
