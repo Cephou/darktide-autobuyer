@@ -77,7 +77,7 @@ Now here is the description of each param :
     -   class : string in this list [ogryn, psyker, zealot, veteran]
     -   buy : boolean (true/false) : whether you want to autobuy any weapon that will match the programmation or not (this setting is overwritten by the global "buyWeapons" setting)
 
-When ready, you can run navigate to your autobuyer directory (using cd like seen previously) and run :
+When ready, you can navigate to your autobuyer directory (using cd like seen previously) and run :
 ```sh
 node bot.js
 ```
